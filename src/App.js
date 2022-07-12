@@ -2,32 +2,62 @@ import logo from './logo.svg';
 import './App.css';
 import React,{useState} from 'react';
 
-const values = [
-  {id: 1, item: "赤"},
-  {id: 2, item: "青"},
-  {id: 3, item: "黄"}
-];
+// Array.include()
+// 配列でしていした要素が含まれているか真偽値で返す
 
-const RadioBtnItems = ({onChange, checked}) => 
-  values.map((value) => {
-    return (
-      <label key={value.id}>
-        <input type="radio" value={value.item} onChange={onChange} checked={checked === value.item} />{value.item}
-      </label>
-    );
-  });
+// Array.filter() 
+//反復処理のためのメソッドで、コールバック関数で処理された個々の要素
+//が条件に一致するか真偽値で返し、戻り値から新たな配列を作成する
 
+const InputCheckBox = () => {
 
-const InputRadio = () => {
-  const [checkedValue, setCheckedValue] = useState("赤");
-  const handleChange = (e) => setCheckedValue(e.target.value);
+  const [checkedValues, setCheckedValues] = useState([]);
+
+  const handleChange = (e) => {
+    if(checkedValues.includes(e.target.value)){
+      setCheckedValues(
+        checkedValues.filter((checkedValue) =>
+          checkedValue !== e.target.value)
+      );
+    }else{
+      setCheckedValues([...checkedValues, e.target.value]);
+    }
+  };
 
   return(
     <div className='App'>
-      <p>現在選択されている値：<b>{checkedValue}</b></p>
-      <RadioBtnItems onChange={handleChange} checked={checkedValue} />
+      <p>
+        現在選択されている値：<b>{checkedValues.join("、")}</b>
+      </p>
+      <label>
+        <input 
+          type="checkbox" 
+          value="マウス" 
+          onChange={handleChange} 
+          checked={checkedValues.includes("マウス")} 
+        />
+        マウス
+      </label>
+      <label>
+        <input 
+          type="checkbox" 
+          value="モニター" 
+          onChange={handleChange} 
+          checked={checkedValues.includes("モニター")} 
+          />
+          モニター
+      </label>
+      <label>
+        <input 
+          type="checkbox" 
+          value="キーボード" 
+          onChange={handleChange} 
+          checked={checkedValues.includes("キーボード")} 
+          />
+          キーボード
+      </label>
     </div>
   );
 };
 
-export default InputRadio;
+export default InputCheckBox;
