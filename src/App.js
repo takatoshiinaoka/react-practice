@@ -1,12 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import React,{useState} from 'react';
 
-const handleChange = (e) => {
-  console.log(e.target.value);
+const InputText = () => {
+  const [inputTextValue, setInputTextValue] = useState("");
+
+  const [text, setText] = useState("JavaScript");
+
+  const handleChange = (e) => setInputTextValue(e.target.value);
+
+  const handleClick = () => {
+    setText(inputTextValue);
+    setInputTextValue("");
+  };
+  
+  return (
+    <div className='App'>
+      <h1>I love {text}!!</h1>
+      <input type="text" value={inputTextValue} onChange={handleChange} />
+      <input type="button" value="入力" onClick={handleClick} />
+    </div>
+  );
 };
 
-const SampleInputText = () => {
-  return <input type="text" defaultValue="" onChange={handleChange} />;
-};
-
-export default SampleInputText;
+export default InputText;
