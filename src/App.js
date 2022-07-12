@@ -8,18 +8,23 @@ const InputCheckBox = () => {
     'モニター':false,
     'キーボード':false
   });
+  console.log(checkedValues);
 
   const handleChange = (e) => {
     setCheckedValues({...checkedValues, [e.target.value]:e.target.checked });
+    // console.log("");
   };
 
   const stateOfCheckedValues = Object.entries(checkedValues).reduce(
     (pre, [key, value])=>{
-      value && pre.push(key);
+      // value && pre.push(key);
+      if(value)
+        pre.push(key);
       return pre;
     },
     []
   );
+  // console.log(stateOfCheckedValues);
 
   return(
     <div className='App'>
