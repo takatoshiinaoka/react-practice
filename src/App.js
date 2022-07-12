@@ -4,7 +4,9 @@ import './App.css';
 const Hello = () => {
   const isReact = true;
 
-  return <p>{isReact ? "React is true!!" : "React is false!!"}</p>;
+  // isReactが true の場合のみ、文字を返す
+  // isReactが false の場合は何も返さない
+  return isReact && <p>Hello, OR Operator</p>;
 };
 
 export default Hello;
