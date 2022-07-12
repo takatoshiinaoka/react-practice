@@ -2,12 +2,27 @@ import logo from './logo.svg';
 import './App.css';
 import React,{useState} from 'react';
 
-// Array.include()
-// 配列でしていした要素が含まれているか真偽値で返す
+const values = [
+  {id:1, item:"マウス"},
+  {id:2, item:"モニター"},
+  {id:3, item:"キーボード"},
+  {id:3, item:"USB"}
+];
 
-// Array.filter() 
-//反復処理のためのメソッドで、コールバック関数で処理された個々の要素
-//が条件に一致するか真偽値で返し、戻り値から新たな配列を作成する
+const CheckBtnItems = ({onChange, checked}) => 
+  values.map((value) => {
+    return(
+      <label key={value.id}>
+        <input 
+          type="checkbox"
+          value={value.item}
+          onChange={onChange}
+          checked={checked.includes(value.item)}
+        />
+        {value.item}
+      </label>
+    )
+  })
 
 const InputCheckBox = () => {
 
@@ -29,35 +44,9 @@ const InputCheckBox = () => {
       <p>
         現在選択されている値：<b>{checkedValues.join("、")}</b>
       </p>
-      <label>
-        <input 
-          type="checkbox" 
-          value="マウス" 
-          onChange={handleChange} 
-          checked={checkedValues.includes("マウス")} 
-        />
-        マウス
-      </label>
-      <label>
-        <input 
-          type="checkbox" 
-          value="モニター" 
-          onChange={handleChange} 
-          checked={checkedValues.includes("モニター")} 
-          />
-          モニター
-      </label>
-      <label>
-        <input 
-          type="checkbox" 
-          value="キーボード" 
-          onChange={handleChange} 
-          checked={checkedValues.includes("キーボード")} 
-          />
-          キーボード
-      </label>
+      <CheckBtnItems onChange={handleChange} checked={checkedValues} />
     </div>
   );
-};
+}
 
 export default InputCheckBox;
