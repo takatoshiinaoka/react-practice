@@ -1,12 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
 
-const App = () => {
-  return (
-    <div className="App">
-      準備完了！
-    </div>
-  );
-}
+const Hello = () => {
+  const isReact = true;
 
-export default App;
+  return (
+    <p>
+      {(() => {
+        if(isReact){
+          return "Hello, React!!";
+        }else{
+          return "Hello!!";
+        }
+      })()}
+    </p>
+  );
+};
+
+export default Hello;
