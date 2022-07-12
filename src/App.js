@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 
-const handleClick = () => {
-  console.log("clickされました!");
+const handleChange = (e) => {
+  console.log(e.target.value);
 };
 
-const SampleButton = () => {
-  return <input type="button" value="ボタン" onClick={handleClick} />;
+const SampleInputText = () => {
+  return <input type="text" defaultValue="" onChange={handleChange} />;
 };
 
-export default SampleButton;
+export default SampleInputText;
