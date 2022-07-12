@@ -4,17 +4,7 @@ import './App.css';
 const Hello = () => {
   const isReact = true;
 
-  return (
-    <p>
-      {(() => {
-        if(isReact){
-          return "Hello, React!!";
-        }else{
-          return "Hello!!";
-        }
-      })()}
-    </p>
-  );
+  return <p>{isReact ? "React is true!!" : "React is false!!"}</p>;
 };
 
 export default Hello;
