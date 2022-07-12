@@ -2,11 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 
 const Hello = () => {
-  const isReact = true;
+  const isReact = false;
 
-  // isReactが true の場合のみ、文字を返す
-  // isReactが false の場合は何も返さない
-  return isReact && <p>Hello, OR Operator</p>;
+  // isReactが false の場合のみ文字を返す
+  return  <p>{isReact || "Hello, OR Operator"}</p>;
 };
 
 export default Hello;
