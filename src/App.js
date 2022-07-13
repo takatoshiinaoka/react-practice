@@ -2,66 +2,61 @@ import logo from './logo.svg';
 import './App.css';
 import React,{useState} from 'react';
 
-const InputCheckBox = () => {
-  console.log("InputCheckBox run");
 
-  const [checkedValues, setCheckedValues] = useState({
-    'マウス':false,
-    'モニター':false,
-    'キーボード':false
+const values = [
+  {id:1, item:"マウス"},
+  {id:2, item:"モニター"},
+  {id:3, item:"キーボード"}
+];
+
+
+const CheckBtnItems = ({ onChange, checked }) => 
+  //map() で配列 value から要素を1つずつ取り出し value で受け取る
+  values.map((value) => {
+    return(
+      <label key={value.id}>
+        <input 
+          type="checkbox"
+          value={value.item}
+          onChange={onChange}
+          checked={checked[value.item]}
+        />
+        {value.item}
+      </label>
+    );
   });
-  // console.log(checkedValues);
+
+
+const InputCheckBox = () => {
+
+  const [checkedValues, setCheckedValues] = useState(
+    values.reduce((acc, cur) => {
+      acc[cur.item] = false
+      return acc},
+      {})
+  );
 
   const handleChange = (e) => {
-    console.log("handleChange run");
-
     setCheckedValues({...checkedValues, [e.target.value]:e.target.checked });
   };
 
   const stateOfCheckedValues = Object.entries(checkedValues).reduce(
     (pre, [key, value])=>{
       // value && pre.push(key);
-      console.log("stateOfchekedValues run");
-
       if(value) 
         pre.push(key);
       return pre;
     },
     []
   );
-  // console.log(stateOfCheckedValues);
-  console.log("");
 
   return(
     <div className='App'>
-      <p>選択されている値：<b>{stateOfCheckedValues.join(",")}</b></p>
-      <label>
-        <input 
-          type="checkbox"
-          value="マウス"
-          onChange={handleChange}
-          checked={checkedValues["マウス"]} 
-        />
-        マウス
-      </label>
-      <label>
-        <input 
-          type="checkbox"
-          value="モニター"
-          onChange={handleChange}
-          checked={checkedValues["モニター"]} 
-        />
-        モニター
-      </label>
-      <label>
-        <input 
-          type="checkbox"
-          value="キーボード"
-          onChange={handleChange}
-          checked={checkedValues["キーボード"]} 
-        />
-        キーボード
-      </label>
+      <p>
+        選択されている値：
+        <b>{stateOfCheckedValues.join(",")}</b>
+      </p>
+      <CheckBtnItems onChange={handleChange} checked={checkedValues} />
     </div>
   );
 };
