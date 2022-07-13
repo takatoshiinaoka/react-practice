@@ -1,4 +1,5 @@
-import React,{ useCallback, useState } from "react"
+// useCallback() で親コンポーネントの関数をラップしない例
+import React,{ useState } from "react"
 import "./App.css"
 
 
@@ -11,11 +12,11 @@ const Counter = () => {
   const [countStateA, setCountStateA] = useState(0)
   const [countStateB, setCountStateB] = useState(0)
   
-  const countIncrementA = useCallback(() =>
-    setCountStateA(countStateA + 1), [countStateA])
+  const countIncrementA = () =>
+    setCountStateA(countStateA + 1)
 
-  const countIncrementB = useCallback(() =>
-    setCountStateB(countStateB + 1), [countStateB])
+  const countIncrementB = () =>
+    setCountStateB(countStateB + 1)
 
   return (
     <>
