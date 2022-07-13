@@ -1,64 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
-import React,{useState} from 'react';
+import React,{ useState } from "react";
+import "./App.css";
 
+const INITIAL_COUNT = 0;
 
-const values = [
-  {id:1, item:"マウス"},
-  {id:2, item:"モニター"},
-  {id:3, item:"キーボード"}
-];
+const INITIAL_NAME = "JavaScript";
 
+const SampleComponent = () => {
+  const [count, setCount] = useState(INITIAL_COUNT);
+  const [name, setName] = useState(INITIAL_NAME);
 
-const CheckBtnItems = ({ onChange, checked }) => 
-  //map() で配列 value から要素を1つずつ取り出し value で受け取る
-  values.map((value) => {
-    return(
-      <label key={value.id}>
-        <input 
-          type="checkbox"
-          value={value.item}
-          onChange={onChange}
-          checked={checked[value.item]}
-        />
-        {value.item}
-      </label>
-    );
-  });
+  const countIncrement = () => setCount((prevCount) => prevCount + 1);
+  const countDecrement = () => setCount((prevCount) => prevCount - 1);
+  const countReset = () => setCount(INITIAL_COUNT);
 
-
-const InputCheckBox = () => {
-
-  const [checkedValues, setCheckedValues] = useState(
-    values.reduce((acc, cur) => {
-      acc[cur.item] = false
-      return acc},
-      {})
-  );
-
-  const handleChange = (e) => {
-    setCheckedValues({...checkedValues, [e.target.value]:e.target.checked });
+  const handleChangeName = (e) => {
+    setName(e.target.value);
   };
 
-  const stateOfCheckedValues = Object.entries(checkedValues).reduce(
-    (pre, [key, value])=>{
-      // value && pre.push(key);
-      if(value) 
-        pre.push(key);
-      return pre;
-    },
-    []
-  );
-
-  return(
-    <div className='App'>
+  return (
+    <div className="App">
       <p>
-        選択されている値：
-        <b>{stateOfCheckedValues.join(",")}</b>
+        現在のカウント数：<b>{count}</b>
+        <br />
+        count の初期値：<b>{INITIAL_COUNT}</b>
       </p>
-      <CheckBtnItems onChange={handleChange} checked={checkedValues} />
+      <button onClick={countIncrement}>increment</button>
+      <button onClick={countDecrement}>decrement</button>
+      <button onClick={countReset}>reset</button>
+      <p>
+        Hello, <b>{name} !!</b>
+        <br />
+        name の初期値：<b>{INITIAL_NAME}</b>
+      </p>
+      <input type="text" onChange={handleChangeName} />
+      <br /><br /><br />
     </div>
   );
 };
 
-export default InputCheckBox;
+
+export default function App(){
+  return(
+    <>
+      <SampleComponent />
+      <SampleComponent />
+    </>
+  )
+};
