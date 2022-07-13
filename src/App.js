@@ -1,39 +1,32 @@
-import React,{ useState } from "react";
-import "./App.css";
+import React,{ useState,useEffect } from "react"
+import "./App.css"
 
-// CounterコンポーネントとHelloコンポーネントをimport
-import { Counter } from "./Counter";
-import { Hello } from "./Hello";
+const INITIAL_COUNT = 0
 
-const INITIAL_COUNT = 0;
-const INITIAL_NAME = "JavaScript";
+const SampleComponent = () => {
+  const [count, setCount] = useState(INITIAL_COUNT)
+  
+  const callbackFunction = () => {
+    document.title = `${count}回クリックされました`
+  }
 
-export default function App(){
-  const [count, setCount] = useState(INITIAL_COUNT);
-  const [name, setName] = useState(INITIAL_NAME);
+  useEffect(callbackFunction, [count])
 
-  const countIncrement = () => setCount((prevCount) => prevCount +1);
-  const countDecrement = () => setCount((prevCount) => prevCount -1);
-  const countReset = () => setCount(INITIAL_COUNT);
+  const countIncrement = () => {
+    setCount((prevCount) => prevCount + 1)
+  }
 
-  const handleChangeName = (e) => {
-    setName(e.target.value);
-  };
+  const countReset = () => {
+    setCount(INITIAL_COUNT)
+  }
 
-  return(
-    <>
-      <Counter
-        count={count}
-        countIncrement={countIncrement}
-        countDecrement={countDecrement}
-        countReset={countReset}
-        initialCount={INITIAL_COUNT}
-      />
-      <Hello 
-        name={name}
-        handleChangeName={handleChangeName}
-        initialName={INITIAL_NAME}
-      />
-    </>
-  );
+  return (
+    <div className="App">
+      <p>現在のカウント数：{count}</p>
+      <button onClick={countIncrement}>+1 ボタン</button>
+      <button onClick={countReset}>リセット</button>
+    </div>
+  )
 }
+
+export default SampleComponent
