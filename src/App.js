@@ -1,22 +1,28 @@
-// useMemo()でラップした例
-import React,{ useRef } from "react"
+import React,{ useEffect, useRef, useState } from "react"
 import "./App.css"
 
+// useRefの場合
 
 const SampleCompoent = () => {
   const inputRefObject = useRef(null)
+  const [text, setText] = useState("")
 
-  const handleClickFocus = () => inputRefObject.current.focus()
+  useEffect(() => {text && console.log("レンダリング!")})
 
-  const handleClickBlur = () => inputRefObject.current.blur()
-  
+  const handleClick = () => setText(inputRefObject.current.value)
+
+  const textReset = () => {
+    setText("")
+    inputRefObject.current.value = ""
+  }
 
   return (
-    <div className="App">
-      <input ref={inputRefObject} type="text" />
-      <button onClick={handleClickFocus}>フォーカスする</button>
-      <button onClick={handleClickBlur}>フォーカスを外す</button>
-    </div>
+    <>
+      <input ref={inputRefObject} type="text" defaultValue="Please enter text" />
+      <button onClick={handleClick}>set text</button>
+      <button onClick={textReset}>reset</button>
+      <p>text: {text}</p>
+    </>
   )
 }
 
