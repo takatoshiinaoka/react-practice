@@ -3,28 +3,34 @@ import './App.css';
 import React,{useState} from 'react';
 
 const InputCheckBox = () => {
+  console.log("InputCheckBox run");
+
   const [checkedValues, setCheckedValues] = useState({
     'マウス':false,
     'モニター':false,
     'キーボード':false
   });
-  console.log(checkedValues);
+  // console.log(checkedValues);
 
   const handleChange = (e) => {
+    console.log("handleChange run");
+
     setCheckedValues({...checkedValues, [e.target.value]:e.target.checked });
-    // console.log("");
   };
 
   const stateOfCheckedValues = Object.entries(checkedValues).reduce(
     (pre, [key, value])=>{
       // value && pre.push(key);
-      if(value)
+      console.log("stateOfchekedValues run");
+
+      if(value) 
         pre.push(key);
       return pre;
     },
     []
   );
   // console.log(stateOfCheckedValues);
+  console.log("");
 
   return(
     <div className='App'>
