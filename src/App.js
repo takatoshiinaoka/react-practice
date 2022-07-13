@@ -1,49 +1,42 @@
-import React,{ useState,useEffect } from "react"
+import React,{ useState } from "react"
 import "./App.css"
 
 
-const INITIAL_COUNT = 0
-
-
-const Timer = () => {
-
-  const [count, setCount] = useState(INITIAL_COUNT)
-  const countReset = () => setCount(INITIAL_COUNT)
-  const countIncrement = () =>{
-    setCount((prevCount) => prevCount + 1)
-    console.log("カウントアップ +1")
-  }
-
-  const callbackFunction = () =>{
-    alert("副作用関数が実行されました")
-    const timer = setInterval(countIncrement, 1000)
-    return () => {
-      console.log("timerが削除されました!")
-      clearInterval(timer)
-    }
-  }
-
-  useEffect(callbackFunction, [])
-
-  return (
-    <div className="App">
-      <p>現在のカウント数：{count}</p>
-      <button onClick={countReset}>RESET</button>
-    </div>
+const CountResult = React.memo(({ text, countState }) => {
+  countState && console.log(`${text}ボタンがクリックされました！`)
+  return(
+    <p>
+      {text}:{countState}
+    </p>
   )
-}
+})
 
 
-export default function App(){
+const Counter = () => {
+  const [countStateA, setCountStateA] = useState(0)
+  const [countStateB, setCountStateB] = useState(0)
+  
+  const countIncrementA = () =>
+    setCountStateA(prevCountStateA => prevCountStateA + 1)
+  
+  const countIncrementB = () =>
+    setCountStateB(prevCountStateB => prevCountStateB + 1)
+  
+  const countReset = () => {
+    setCountStateA(0)
+    setCountStateB(0)
+  }
 
-  const [display, toggleDisplay] = useState(false)
-  const handleToggleDisplay = () => toggleDisplay(!display)
   return (
     <>
-      <button onClick={handleToggleDisplay}>
-        {display ? "タイマーを非表示" : "タイマーを表示"}
-      </button>
-      {display && <Timer />}
+      <CountResult text="Aボタン" countState={countStateA} />
+      <CountResult text="Bボタン" countState={countStateB} />
+      <button onClick={countIncrementA}>A ボタン</button>
+      <button onClick={countIncrementB}>B ボタン</button>
+      <button onClick={countReset}>リセット</button>
     </>
   )
 }
+
+
+export default Counter
