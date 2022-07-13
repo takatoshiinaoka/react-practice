@@ -1,33 +1,21 @@
-import React,{ useEffect, useState } from "react"
+import React,{ createContext, useContext } from "react"
 import "./App.css"
 
 
-const SampleCompoent = () => {
-  // const inputRefObject = useRef(null)
-  const [inputValue, setInputValue] = useState("")
-  const [text, setText] = useState("")
+const SampleContextObject = createContext()
 
-  useEffect(() => {text && console.log("レンダリング!")})
-
-  // const handleClick = () => setText(inputRefObject.current.value)
-  const handleClick = () => setText(inputValue)
-
-  const handleChange = (e) => setInputValue(e.target.value)
-
-  const textReset = () => {
-    setText("")
-    // inputRefObject.current.value = ""
-    setInputValue("")
-  }
-
-  return (
-    <>
-      <input value={inputValue} onChange={handleChange} type="text" />
-      <button onClick={handleClick}>set text</button>
-      <button onClick={textReset}>reset</button>
-      <p>text: {text}</p>
-    </>
-  )
+const ConsumerComponent = () => {
+  const messageText = useContext(SampleContextObject)
+  console.log(messageText)
+  return <p>{messageText}</p>
 }
 
-export default SampleCompoent
+const message = "I love React!!"
+
+export default function App(){
+  return (
+    <SampleContextObject.Provider value={message}>
+      <ConsumerComponent />
+    </SampleContextObject.Provider>
+  )
+}
