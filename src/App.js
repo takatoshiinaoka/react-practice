@@ -1,24 +1,28 @@
-import React,{ useEffect, useRef, useState } from "react"
+import React,{ useEffect, useState } from "react"
 import "./App.css"
 
-// useRefの場合
 
 const SampleCompoent = () => {
-  const inputRefObject = useRef(null)
+  // const inputRefObject = useRef(null)
+  const [inputValue, setInputValue] = useState("")
   const [text, setText] = useState("")
 
   useEffect(() => {text && console.log("レンダリング!")})
 
-  const handleClick = () => setText(inputRefObject.current.value)
+  // const handleClick = () => setText(inputRefObject.current.value)
+  const handleClick = () => setText(inputValue)
+
+  const handleChange = (e) => setInputValue(e.target.value)
 
   const textReset = () => {
     setText("")
-    inputRefObject.current.value = ""
+    // inputRefObject.current.value = ""
+    setInputValue("")
   }
 
   return (
     <>
-      <input ref={inputRefObject} type="text" defaultValue="Please enter text" />
+      <input value={inputValue} onChange={handleChange} type="text" />
       <button onClick={handleClick}>set text</button>
       <button onClick={textReset}>reset</button>
       <p>text: {text}</p>
