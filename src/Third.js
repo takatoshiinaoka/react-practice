@@ -1,7 +1,5 @@
-// 関数コンポーネント内で useContext を扱えるようにするため、
-// React import 時に useContext を読み込む
 import React,{useContext} from "react"
-import { TextContext } from "./TextProvider"
+import { CountContext } from "./CountProvier"
 
 // 他のファイルで Thirdコンポーネントを利用できるようにするため
 // exportしておく
@@ -10,17 +8,19 @@ import { TextContext } from "./TextProvider"
 export const Third = () => {
     // useCntext()を利用して、Contextオブジェクトから値を取得
     // useContext()はContextオブジェクトの値を取得できるReactフック
-    const textData = useContext(TextContext)
+    const [count, setCount] = useContext(CountContext)
 
     // textDataには、useContext(TextContext)の値が入っている
     // textDataはProviderコンポーネントから取得したvalueの値
     // Thirdコンポーネント内で、Contextオブジェクトの値を取得できる
-    console.log(textData)
-    return(
+    console.log(`現在のカウント：${count}`)
+    
+    const handleClick = () => setCount((prevCount)=>prevCount + 1)
+
+    return (
         <>
-            <p>
-                Thirdコンポーネント：<b>{textData}</b>
-            </p>  
+            <p>Thirdコンポーネント：<b>現在のカウント：{count}</b></p>
+            <button onClick={handleClick}>+1 ボタン</button>
         </>
     )
 }

@@ -1,8 +1,6 @@
 // Third import
 import {Third} from "./Third"
 
-//
-//
 export const Second = () => {
     return (
         <>
